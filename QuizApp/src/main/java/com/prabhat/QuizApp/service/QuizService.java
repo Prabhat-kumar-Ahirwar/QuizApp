@@ -47,17 +47,24 @@ public class QuizService {
     }
 
     public ResponseEntity<Integer> calcResult(Integer id, List<Response> responses) {
-        Quiz quiz = quizRepository.findById(id).get();
+        Quiz quiz = quizRepository.findById(id).orElse(null);
 
+        if (quiz == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         List<Question> questions = quiz.getQuestions();
-        int right=0;
-        int i=0;
-        for(Response response1 :responses){
-            if(response1.getResponse().equals(questions.get(i))){
+        int right = 0;
+
+        for (int i = 0; i < responses.size(); i++) {
+            Response userRes = responses.get(i);
+            Question question = questions.get(i);
+
+            // Compare user selected answer with correct answer
+            if (userRes.getResponse().equalsIgnoreCase(question.getRightAnswer())) {
                 right++;
             }
-            i++;
         }
         return new ResponseEntity<>(right, HttpStatus.OK);
     }
+
 }
