@@ -1,6 +1,7 @@
 package com.prabhat.QuizApp.controller;
 
 import com.prabhat.QuizApp.entity.Response;
+import com.prabhat.QuizApp.entity.Users;
 import com.prabhat.QuizApp.service.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -33,4 +34,6 @@ public class QuizController {
     public ResponseEntity<Integer> submitResponse(@PathVariable Integer id , @RequestBody List<Response> response){
             return  quizService.calcResult(id,response);
     }
+
+
 }

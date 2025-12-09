@@ -12,4 +12,4 @@ public class QuizAppApplication {
 
 }
 
-//git pull origin master
+//git push origin master
